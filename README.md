@@ -1,7 +1,5 @@
 # Arduino-Viskometer
 
-# Sistem Pengukuran Viskositas Menggunakan Arduino
-
 Repository ini berisi skrip Arduino untuk sistem pengukuran viskositas menggunakan berbagai sensor dan komponen. Sistem ini dirancang untuk mengukur viskositas dengan menganalisis suhu, RPM motor, dan torsi. Skrip Arduino dalam repository ini memberikan fungsionalitas untuk mengatur pengaturan, mengontrol pemanas dan motor, serta menampilkan informasi pada layar LCD.
 
 ## Daftar Isi
