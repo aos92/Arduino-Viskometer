@@ -19,18 +19,26 @@
       "attrs": { "label": "Suhu" }
     },
     {
-      "type": "wokwi-photoresistor-sensor",
-      "id": "ldr1",
-      "top": -714.68,
-      "left": 231.38,
-      "rotate": 90,
-      "attrs": { "label": "Arus" }
+      "type": "chip-ina169",
+      "id": "chip1",
+      "top": -670.33,
+      "left": 305.95,
+      "rotate": -90,
+      "attrs": {}
+    },
+    {
+      "type": "chip-voltsensor",
+      "id": "chip2",
+      "top": -670.69,
+      "left": 234.12,
+      "rotate": -90,
+      "attrs": {}
     },
     {
       "type": "wokwi-pushbutton",
       "id": "btn5",
-      "top": -656.79,
-      "left": 378.16,
+      "top": -657.92,
+      "left": 409.52,
       "rotate": 90,
       "attrs": { "color": "green", "bounce": "0", "label": "Countet" }
     },
@@ -69,8 +77,8 @@
     {
       "type": "wokwi-resistor",
       "id": "r1",
-      "top": -554.04,
-      "left": 350.08,
+      "top": -554.26,
+      "left": 373.04,
       "rotate": 180,
       "attrs": { "value": "10000" }
     },
@@ -121,7 +129,7 @@
     }
   ],
   "connections": [
-    [ "r4:1", "temp1:DQ", "green", [ "h0" ] ],
+    [ "r4:1", "temp1:DQ", "cyan", [ "h0" ] ],
     [ "temp1:GND", "ldr1:GND", "black", [ "v18.58", "h110.78", "v5.09" ] ],
     [ "temp1:VCC", "ldr1:VCC", "red", [ "v11.58", "h101.17", "v0.71" ] ],
     [ "temp1:VCC", "r4:2", "red", [ "v104.65", "h-10.98", "v0.93" ] ],
@@ -151,8 +159,6 @@
     [ "led2:C", "led3:C", "black", [ "v13.31", "h49.41", "v-3.52" ] ],
     [ "uno:A5", "chip2:SCL", "orange", [ "v34.74", "h200.23", "v-268.91", "h-1.97" ] ],
     [ "chip2:SDA", "uno:A4", "green", [ "h32.09", "v285.19", "h-2.17" ] ],
-    [ "uno:5V", "chip2:VCC", "red", [ "v45.02", "h315.15", "v5.35" ] ],
-    [ "chip2:GND", "uno:GND.2", "black", [ "h46.55", "v307.16", "h-314.6", "v10.11" ] ],
     [ "led3:A", "r2:1", "green", [ "v0" ] ],
     [ "led1:C", "lcd1:GND", "black", [ "v14.11", "h-60.28", "v-6.8" ] ],
     [ "uno:6", "btn3:2.r", "green", [ "v-130.14", "h-0.87" ] ],
@@ -160,7 +166,17 @@
     [ "uno:8", "btn1:2.r", "green", [ "v-105.27", "h-116.92", "v-2.72" ] ],
     [ "r3:2", "uno:5", "blue", [ "h1.6", "v21.28", "h-137.84", "v417.37", "h353.76", "v5.13" ] ],
     [ "uno:4", "r2:2", "white", [ "v-44.69", "h-378.07", "v-399.33", "h1.92" ] ],
-    [ "uno:9", "r5:2", "gold", [ "v-52.8", "h-335.01", "v-427.76", "h-0.47" ] ]
+    [ "uno:9", "r5:2", "gold", [ "v-52.8", "h-335.01", "v-427.76", "h-0.47" ] ],
+    [ "chip1:SDA", "uno:A4", "green", [ "v145.72", "h-431.12", "v668", "h52.15" ] ],
+    [ "chip1:SCL", "uno:A5", "green", [ "v154.44", "h-434.4", "v665.63", "h9.19" ] ],
+    [ "temp1:VCC", "chip2:VCC", "red", [ "v9.99", "h4.36" ] ],
+    [ "chip2:VCC", "chip1:VCC", "red", [ "v16.73", "h9.55" ] ],
+    [ "chip1:VCC", "btn5:2.r", "red", [ "v16.71", "h7.96" ] ],
+    [ "temp1:GND", "chip2:GND", "black", [ "v17.66", "h4.51" ] ],
+    [ "chip2:GND", "chip1:GND", "black", [ "v24.56", "h6.44" ] ],
+    [ "chip1:GND", "r1:2", "black", [ "v0" ] ],
+    [ "chip2:OUT", "uno:A0", "green", [ "v147.24", "h-409.86", "v667.94", "h57.09" ] ],
+    [ "uno:A1", "chip1:OUT", "green", [ "v71.29", "h-408.83", "v-668.54", "h116.37" ] ]
   ],
   "dependencies": {}
 }
