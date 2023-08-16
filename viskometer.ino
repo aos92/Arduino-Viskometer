@@ -107,7 +107,7 @@ float suhu = 0.0;
 float volt = 0.0;
 float ampere = 0.0;
 float torsi = 0.0;
-float kcpSudut = 0.0;
+float kecepatanSudut = 0.0;
 float viskositas = 0.0;
 
 const byte MENU_UTAMA = 0; // Konstanta untuk menu utama
@@ -138,8 +138,6 @@ float suhuMaksimum = 25.0;
 float suhuHisteresis = 1.0;
 unsigned long setWaktuMotor = 3000;
 int setPwmMotor = 50;
-
-//float baca_A, baca_B, nilaiADC_A, nilaiADC_B;
 
 //////////// Fungsi untuk melakukan setup awal ///////////
 void setup() {
@@ -244,16 +242,21 @@ void loop() {
 
   /////////////////// Kalkulasi ///////////////////
 
-  kcpSudut = (rpm * 2 * PI) / 60.0; // Menghitung kecepatan sudut dalam radian per detik
+  kecepatanSudut = (rpm * 2 * PI) / 60.0; // Menghitung kecepatan sudut dalam radian per detik
 
   torsi = (volt * ampere) / ((2 * PI * rpm) / 60.0); // Menghitung torsi berdasarkan arus, RPM, dan tegangan input
 
-  // Menghitung perbedaan torsi (T)
-  float T = torsi - 0.5;
+  float n = 3.1415926535897932384626433832795;
 
-  // Menghitung viskositas menggunakan rumus
-  viskositas = (T * 60) / (4 * PI * PI * rpm * 0.05) * (1 / (0.03 * 0.03) - 1 / (0.03 * 0.04));
+   // Menghitung faktor konstanta untuk bagian dalam tanda kurung pertama
+  float faktor1 = (1 / (0.03 * 0.03)) - (1 / (0.03 * 0.04));
 
+  // Hitung faktor konstanta untuk pembagian
+  float faktor2 = 4 * n * n * rpm * 0.05;
+
+  // Hitung viskositas
+  viskositas = (torsi * 60) / (faktor2 * faktor1);
+    
   /*
     // inisialisasi nilai-nilai parameter
     TL = torsi; // Torsi pada kondisi ada beban (Nm)
@@ -356,7 +359,7 @@ void menuUtama() {
   lcd.setCursor(13, 1);
   lcd.print(" cP");
 
-  delay(500);
+  delay(1000);
 }
 
 // Fungsi untuk mengatur suhu maksimum
@@ -432,7 +435,7 @@ void aturSuhuHistetesis() {
 }
 
 // Fungsi untuk mengatur heater in off
-void aturStatusHeater() {
+void aturStatusHeater(){
   while (menuSekarang == MENU_SET_STATUS_HEATER) {
     if (millis() - masukMenu > waktuKeluarMenu) {
       menuSekarang = MENU_TIMEOUT;
@@ -561,18 +564,18 @@ void aturStatusMotor() {
     lcd.setCursor(0, 1);
     lcd.print("STOP(-) START(+)");
 
-    if (digitalRead(TOMBOL_INC) == LOW) {
+ if (digitalRead(TOMBOL_INC) == LOW) {
       motor = true;
-      startMotor(); // Memulai motor
+      startMotor(); // Memulai motor 
       delay(250);
     }
 
     if (digitalRead(TOMBOL_DEC) == LOW) {
       motor = false;
-      stopMotor(); // Menghentikan motor
+      stopMotor(); // Menghentikan motor 
       delay(250);
     }
-
+        
     if (digitalRead(TOMBOL_MENU) == LOW) {
       delay(250);
       lcd.clear();
@@ -611,8 +614,8 @@ void aturWaktuKeluarMenu() {
 }
 
 /*
-  // Menambahkan penanganan timeout pada menu
-  void handleTimeout() {
+// Menambahkan penanganan timeout pada menu
+void handleTimeout() {
   if (millis() - masukMenu > waktuKeluarMenu) {
     menuSaatIni = MENU_TIMEOUT;
     lcd.clear();
@@ -623,7 +626,7 @@ void aturWaktuKeluarMenu() {
     delay(3000);
     masukMenu = millis(); // Atur ulang variabel masukMenu ke waktu saat ini
   }
-  }
+}
 */
 
 // Fungsi untuk mendapatkan panjang tombol ditekan
