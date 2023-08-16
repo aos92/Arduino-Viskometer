@@ -1,0 +1,21 @@
+{
+  "name": "voltsensor",
+  "author": "Asep Oman Somantri",
+  "pins": [
+    "VCC",
+    "OUT",
+    "GND",
+    "",
+    ""
+  ],
+  "controls": [
+   {
+      "id": "voltage",
+      "label": "volt",
+      "type": "Volt",
+      "min": 0,
+      "max": 25,
+      "step": 0.1
+    }
+  ]
+}

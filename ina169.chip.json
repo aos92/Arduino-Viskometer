@@ -1,0 +1,21 @@
+{
+  "name": "ina169",
+  "author": "Asep Oman Somantri",
+  "pins": [
+    "VCC",
+    "OUT",
+    "GND",
+    "",
+    ""
+  ],
+  "controls": [
+    {
+      "id": "ampere",
+      "label": "miliAmpere",
+      "type": "mA",
+      "min": 0,
+      "max": 2000,
+      "step": 1
+    }
+  ]
+}
